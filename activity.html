@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity & Intel - CypherX</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-animation">
+        <div class="cyber-grid"></div>
+    </div>
+    
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-shield-alt"></i> Cypher<span>X</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="monitor.html">Live Monitor</a></li>
+            <li><a href="scan-qr.html">QR Scanner</a></li>
+            <li><a href="scan-url.html">URL Scanner</a></li>
+            <li><a href="activity.html" class="active">Activity & Intel</a></li>
+            <li><a href="index.html">Logout</a></li>
+        </ul>
+    </nav>
+
+    <main class="dashboard-main">
+        <div class="stats-grid">
+            <div class="intel-panel glass-card">
+                <h3><i class="fas fa-bug"></i> Top Phishing Patterns Detected</h3>
+                <ul class="intel-list">
+                    <li><span class="threat-tag warning">Subdomain Abuse</span> 42% of threats</li>
+                    <li><span class="threat-tag danger">Keyword: "login"</span> 28% of threats</li>
+                    <li><span class="threat-tag danger">IP Hosting</span> 15% of threats</li>
+                    <li><span class="threat-tag warning">Typosquatting</span> 10% of threats</li>
+                </ul>
+            </div>
+            
+            <div class="intel-panel glass-card">
+                <h3><i class="fas fa-globe"></i> Top Risky Domains (Last 24h)</h3>
+                <ul class="intel-list">
+                    <li><span class="text-danger">secure-login-update.com</span> (Critical)</li>
+                    <li><span class="text-danger">paypal-security-check.xyz</span> (Critical)</li>
+                    <li><span class="text-danger">appleid-confirm.info</span> (Critical)</li>
+                    <li><span class="text-warning">update-billing-info.net</span> (Suspicious)</li>
+                </ul>
+            </div>
+            
+            <div class="intel-panel glass-card span-2" style="grid-column: span 2; display: flex; flex-direction: column;">
+                <h3><i class="fas fa-rss"></i> Live Threat Intelligence Feed</h3>
+                <div class="threat-feed" id="threat-feed">
+                    <p class="feed-item"><span class="time-stamp">[14:22:01]</span> <span class="danger-text">CRITICAL TRAP DETECTED:</span> Malicious payload intercepted from RU server block.</p>
+                    <p class="feed-item"><span class="time-stamp">[14:19:44]</span> <span class="warning-text">NEW SIGNATURE:</span> Zero-day phishing campaign targeting financial sectors updated.</p>
+                    <p class="feed-item"><span class="time-stamp">[14:15:12]</span> <span class="safe-text">SYSTEM UPDATE:</span> Machine learning models synchronized globally.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-container glass-card" style="margin-top: 2rem;">
+            <h2>Recent Activity Log</h2>
+            <table class="activity-table">
+                <thead>
+                    <tr>
+                        <th>Date/Time</th>
+                        <th>URL or File Scanned</th>
+                        <th>Risk Score</th>
+                        <th>Status</th>
+                        <th>Source</th>
+                    </tr>
+                </thead>
+                <tbody id="activity-table-body">
+                    <!-- Populated dynamically via JS -->
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- Floating Widget -->
+    <div class="floating-widget" id="floating-widget">
+        <i class="fas fa-shield-virus widget-icon pulse"></i>
+    </div>
+    <div class="widget-panel glass-card" id="widget-panel">
+        <div class="widget-header">
+            <h4>Live Protection</h4>
+            <i class="fas fa-times" id="close-widget" style="cursor: pointer;"></i>
+        </div>
+        <div class="widget-status active-status">
+            <i class="fas fa-check-circle"></i> ACTIVE
+        </div>
+        <div class="widget-last-scan">
+            <p>Last Activity:</p>
+            <div id="widget-last-url" class="truncate">github.com (Safe)</div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Monitor - CypherX</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-animation">
+        <div class="cyber-grid"></div>
+    </div>
+    
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-shield-alt"></i> Cypher<span>X</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="monitor.html" class="active">Live Monitor</a></li>
+            <li><a href="scan-qr.html">QR Scanner</a></li>
+            <li><a href="scan-url.html">URL Scanner</a></li>
+            <li><a href="activity.html">Activity & Intel</a></li>
+            <li><a href="index.html">Logout</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <div class="scanner-container">
+            <h2>Browser Monitoring Simulation</h2>
+            <p>Paste any link to simulate opening a website. CypherX will intercept it.</p>
+            
+            <form id="monitor-form">
+                <div class="input-group">
+                    <input type="url" id="monitor-input" class="cyber-input" placeholder="https://example.com/suspicious-path" required>
+                    <button type="submit" class="btn btn-primary cyber-btn" style="background-color: var(--accent-neon); color: #000;">
+                        <span class="btn-content"><i class="fas fa-external-link-alt"></i> Simulate Open</span>
+                    </button>
+                </div>
+            </form>
+
+            <div class="loader" id="monitor-loader">
+                <div class="cyber-spinner"></div>
+                <p style="margin-top: 10px; color: var(--accent-blue);">Intercepting network traffic...</p>
+            </div>
+            
+            <div id="monitor-intercept-modal" class="intercept-modal glass-card" style="display: none;">
+                <div class="modal-content">
+                    <i id="monitor-modal-icon" class="fas fa-exclamation-triangle pulse" style="font-size: 5rem; color: var(--danger);"></i>
+                    <h2 style="color: var(--danger); font-size: 2.5rem; margin-top: 1rem;">ACCESS BLOCKED</h2>
+                    <p>CypherX Live Protection has intercepted a risky payload.</p>
+                    
+                    <div class="intercept-details">
+                        <div class="risk-meter-container">
+                            <div class="risk-score-display">
+                                <span id="monitor-score-val">95</span>%
+                                <div class="risk-label" id="monitor-status-val">DANGEROUS</div>
+                            </div>
+                        </div>
+                        <p id="monitor-reason-val" style="margin-top: 10px; font-weight: bold;"></p>
+                    </div>
+
+                    <div class="action-buttons" style="justify-content: center; margin-top: 2rem;">
+                        <button id="btn-go-back" class="btn btn-primary cyber-btn" style="background: var(--safe); color: #000; border-color: var(--safe);">
+                            <span class="btn-content"><i class="fas fa-chevron-left"></i> Go back to safety</span>
+                        </button>
+                        <button id="btn-proceed" class="btn btn-secondary cyber-btn" style="border-color: #555; color: #aaa;">
+                            <span class="btn-content">Proceed anyway <i class="fas fa-skull"></i></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Floating Widget -->
+    <div class="floating-widget" id="floating-widget">
+        <i class="fas fa-shield-virus widget-icon pulse"></i>
+    </div>
+    <div class="widget-panel glass-card" id="widget-panel">
+        <div class="widget-header">
+            <h4>Live Protection</h4>
+            <i class="fas fa-times" id="close-widget" style="cursor: pointer;"></i>
+        </div>
+        <div class="widget-status active-status">
+            <i class="fas fa-check-circle"></i> ACTIVE
+        </div>
+        <div class="widget-last-scan">
+            <p>Last Activity:</p>
+            <div id="widget-last-url" class="truncate">github.com (Safe)</div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

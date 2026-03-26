@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Scanner - CypherX</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Load ZXing from CDN -->
+    <script type="text/javascript" src="https://unpkg.com/@zxing/library@0.21.2/umd/index.min.js"></script>
+</head>
+<body>
+    <div class="background-animation">
+        <div class="cyber-grid"></div>
+    </div>
+    
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-shield-alt"></i> Cypher<span>X</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="monitor.html">Live Monitor</a></li>
+            <li><a href="scan-qr.html" class="active">QR Scanner</a></li>
+            <li><a href="scan-url.html">URL Scanner</a></li>
+            <li><a href="activity.html">Activity & Intel</a></li>
+            <li><a href="index.html">Logout</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <div class="scanner-container">
+            <h2>Deceptive QR Code Scanner</h2>
+            <p>Upload a QR code image to decrypt and verify its destination payload.</p>
+            
+            <div class="input-group">
+                <div class="file-upload-wrapper">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Click or drag QR image here</p>
+                    <input type="file" id="qr-input" accept="image/*">
+                </div>
+                
+                <div id="preview-container">
+                    <img id="qr-preview" alt="QR Preview">
+                </div>
+                
+                <button id="scan-qr-btn" class="btn btn-primary cyber-btn" style="display: none;">
+                    <span class="btn-content"><i class="fas fa-microchip"></i> Decode & Analyze</span>
+                </button>
+            </div>
+
+            <div class="loader" id="qr-loader">
+                <div class="cyber-spinner"></div>
+                <p style="margin-top: 10px; color: var(--accent-neon);">Decrypting payload...</p>
+            </div>
+
+            <div id="qr-decoded-text" style="display: none; margin-top: 20px; word-break: break-all; color: var(--accent-blue); font-size: 1.1rem; border: 1px dashed var(--accent-blue); padding: 10px;">
+                <strong>Extracted Payload: </strong> <span id="extracted-url"></span>
+            </div>
+
+            <div id="qr-result-card" class="result-card">
+                <i id="qr-result-icon" class="fas result-icon"></i>
+                <h3 id="qr-result-status" class="result-status"></h3>
+                <p id="qr-result-reason" class="result-reason"></p>
+            </div>
+            
+            <div id="qr-error-msg" style="display: none; margin-top: 20px; color: var(--danger);">
+            </div>
+        </div>
+    </main>
+
+    <!-- Floating Widget -->
+    <div class="floating-widget" id="floating-widget">
+        <i class="fas fa-shield-virus widget-icon pulse"></i>
+    </div>
+    <div class="widget-panel glass-card" id="widget-panel">
+        <div class="widget-header">
+            <h4>Live Protection</h4>
+            <i class="fas fa-times" id="close-widget" style="cursor: pointer;"></i>
+        </div>
+        <div class="widget-status active-status">
+            <i class="fas fa-check-circle"></i> ACTIVE
+        </div>
+        <div class="widget-last-scan">
+            <p>Last Activity:</p>
+            <div id="widget-last-url" class="truncate">-</div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

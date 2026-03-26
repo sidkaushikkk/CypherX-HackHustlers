@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - CypherX</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="background-animation">
+        <div class="cyber-grid"></div>
+    </div>
+    
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-shield-alt"></i> Cypher<span>X</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="dashboard.html" class="active">Dashboard</a></li>
+            <li><a href="monitor.html">Live Monitor</a></li>
+            <li><a href="scan-qr.html">QR Scanner</a></li>
+            <li><a href="scan-url.html">URL Scanner</a></li>
+            <li><a href="activity.html">Activity & Intel</a></li>
+            <li><a href="index.html">Logout</a></li>
+        </ul>
+    </nav>
+
+    <main class="dashboard-main">
+        <div class="dashboard-header">
+            <h2>Security Command Center</h2>
+            <div class="global-status active-status">
+                <i class="fas fa-satellite-dish pulse"></i> Hệ thống đang hoạt động / Systems Online
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card glass-card">
+                <i class="fas fa-link stat-icon"></i>
+                <div class="stat-info">
+                    <h3>Total Links Scanned</h3>
+                    <p id="total-scanned" class="stat-number">2,451</p>
+                </div>
+            </div>
+            <div class="stat-card glass-card">
+                <i class="fas fa-biohazard stat-icon danger-text"></i>
+                <div class="stat-info">
+                    <h3>Threats Detected</h3>
+                    <p id="total-threats" class="stat-number danger-text">142</p>
+                </div>
+            </div>
+            <div class="stat-card glass-card">
+                <i class="fas fa-shield-check stat-icon safe-text"></i>
+                <div class="stat-info">
+                    <h3>Safe Scans</h3>
+                    <p id="total-safe" class="stat-number safe-text">2,180</p>
+                </div>
+            </div>
+            <div class="stat-card glass-card">
+                <i class="fas fa-exclamation-triangle stat-icon warning-text"></i>
+                <div class="stat-info">
+                    <h3>Suspicious</h3>
+                    <p id="total-suspicious" class="stat-number warning-text">129</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-content">
+            <div class="charts-section">
+                <div class="chart-container glass-card">
+                    <h3>Threat Distribution</h3>
+                    <canvas id="pieChart"></canvas>
+                </div>
+                <div class="chart-container glass-card">
+                    <h3>Detection Timeline (Last 7 Days)</h3>
+                    <canvas id="lineChart"></canvas>
+                </div>
+            </div>
+
+            <div class="side-panel">
+                <div class="risk-meter-container glass-card">
+                    <h3>Current Network Risk</h3>
+                    <div class="risk-meter">
+                        <svg viewBox="0 0 36 36" class="circular-chart">
+                            <path class="circle-bg"
+                                d="M18 2.0845
+                                a 15.9155 15.9155 0 0 1 0 31.831
+                                a 15.9155 15.9155 0 0 1 0 -31.831"
+                            />
+                            <path class="circle" id="risk-dial"
+                                stroke-dasharray="25, 100"
+                                d="M18 2.0845
+                                a 15.9155 15.9155 0 0 1 0 31.831
+                                a 15.9155 15.9155 0 0 1 0 -31.831"
+                            />
+                        </svg>
+                        <div class="risk-score-display">
+                            <span id="global-risk-score">25</span>%
+                            <div class="risk-label safe-text">SAFE</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recent-scans glass-card">
+                    <h3>Recent Scans</h3>
+                    <ul class="scan-list" id="dashboard-scan-list">
+                        <!-- Populated by JS -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- File Scan Simulation Section -->
+        <div class="file-scanner-section glass-card" style="margin-top: 2rem;">
+            <h2><i class="fas fa-file-code"></i> Payload Inspector (File Scanner)</h2>
+            <div class="input-group">
+                <div class="file-upload-wrapper" id="file-upload-zone">
+                    <i class="fas fa-file-upload"></i>
+                    <p>Select or drop suspicious files to inspect</p>
+                    <input type="file" id="file-input">
+                </div>
+                <div id="selected-filename" style="margin-top: 10px; color: var(--accent-neon);"></div>
+                <button id="scan-file-btn" class="btn btn-primary cyber-btn" style="display: none; margin-top: 15px;">
+                    <span class="btn-content"><i class="fas fa-microscope"></i> Initiate Deep Scan</span>
+                </button>
+            </div>
+            
+            <div class="loader" id="file-loader" style="display: none;">
+                <div class="cyber-spinner"></div>
+                <p style="margin-top: 10px; color: var(--accent-neon);">Decompiling payload and generating signatures...</p>
+                <div class="progress-bar-bg" style="width: 100%; height: 5px; background: #333; margin-top: 10px; border-radius: 3px;">
+                    <div id="file-progress" style="width: 0%; height: 100%; background: var(--accent-neon); transition: width 0.1s; border-radius: 3px;"></div>
+                </div>
+            </div>
+
+            <div id="file-result-card" class="result-card">
+                <i id="file-result-icon" class="fas result-icon"></i>
+                <h3 id="file-result-status" class="result-status"></h3>
+                <p id="file-result-reason" class="result-reason"></p>
+                <div class="risk-bar-container" style="margin-top: 20px;">
+                    <div class="risk-bar-bg">
+                        <div id="file-risk-fill" class="risk-bar-fill"></div>
+                    </div>
+                    <div class="risk-score-text">AI Threat Score: <span id="file-score-val"></span>/100</div>
+                </div>
+            </div>
+        </div>
+        
+    </main>
+
+    <!-- Floating Widget -->
+    <div class="floating-widget" id="floating-widget">
+        <i class="fas fa-shield-virus widget-icon pulse"></i>
+    </div>
+    <div class="widget-panel glass-card" id="widget-panel">
+        <div class="widget-header">
+            <h4>Live Protection</h4>
+            <i class="fas fa-times" id="close-widget" style="cursor: pointer;"></i>
+        </div>
+        <div class="widget-status active-status">
+            <i class="fas fa-check-circle"></i> ACTIVE
+        </div>
+        <div class="widget-last-scan">
+            <p>Last Activity:</p>
+            <div id="widget-last-url" class="truncate">github.com (Safe)</div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Init Charts specific to dashboard
+        window.addEventListener('load', () => {
+            if(typeof Chart !== 'undefined') {
+                const ctxPie = document.getElementById('pieChart').getContext('2d');
+                new Chart(ctxPie, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Safe', 'Suspicious', 'Dangerous'],
+                        datasets: [{
+                            data: [2180, 129, 142],
+                            backgroundColor: ['#00ff88', '#ffb800', '#ff3366'],
+                            borderWidth: 0,
+                            hoverOffset: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: { position: 'bottom', labels: { color: '#e2e8f0', font: { family: 'Rajdhani' } } }
+                        }
+                    }
+                });
+
+                const ctxLine = document.getElementById('lineChart').getContext('2d');
+                new Chart(ctxLine, {
+                    type: 'line',
+                    data: {
+                        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                        datasets: [{
+                            label: 'Threats Blocked',
+                            data: [12, 19, 15, 25, 22, 30, 19],
+                            borderColor: '#ff3366',
+                            backgroundColor: 'rgba(255, 51, 102, 0.2)',
+                            tension: 0.4,
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: { grid: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: '#e2e8f0' } },
+                            x: { grid: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: '#e2e8f0' } }
+                        },
+                        plugins: {
+                            legend: { labels: { color: '#e2e8f0', font: { family: 'Rajdhani' } } }
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

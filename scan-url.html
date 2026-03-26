@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Scanner - CypherX</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-animation">
+        <div class="cyber-grid"></div>
+    </div>
+    
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-shield-alt"></i> Cypher<span>X</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="monitor.html">Live Monitor</a></li>
+            <li><a href="scan-qr.html">QR Scanner</a></li>
+            <li><a href="scan-url.html" class="active">URL Scanner</a></li>
+            <li><a href="activity.html">Activity & Intel</a></li>
+            <li><a href="index.html">Logout</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <div class="scanner-container">
+            <h2>Threat Intelligence Link Scanner</h2>
+            <p>Analyze suspicious URLs and phishing attempts.</p>
+            
+            <form id="url-scan-form">
+                <div class="input-group">
+                    <input type="url" id="url-input" class="cyber-input" placeholder="https://example.com/login" required>
+                    <button type="submit" class="btn btn-primary cyber-btn">
+                        <span class="btn-content"><i class="fas fa-search"></i> Check Safety</span>
+                    </button>
+                </div>
+            </form>
+
+            <div class="loader" id="url-loader">
+                <div class="cyber-spinner"></div>
+                <p style="margin-top: 10px; color: var(--accent-neon);">Analyzing payload...</p>
+            </div>
+
+            <div id="url-result-card" class="result-card">
+                <i id="url-result-icon" class="fas result-icon"></i>
+                <h3 id="url-result-status" class="result-status"></h3>
+                <p id="url-result-reason" class="result-reason"></p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Floating Widget -->
+    <div class="floating-widget" id="floating-widget">
+        <i class="fas fa-shield-virus widget-icon pulse"></i>
+    </div>
+    <div class="widget-panel glass-card" id="widget-panel">
+        <div class="widget-header">
+            <h4>Live Protection</h4>
+            <i class="fas fa-times" id="close-widget" style="cursor: pointer;"></i>
+        </div>
+        <div class="widget-status active-status">
+            <i class="fas fa-check-circle"></i> ACTIVE
+        </div>
+        <div class="widget-last-scan">
+            <p>Last Activity:</p>
+            <div id="widget-last-url" class="truncate">-</div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

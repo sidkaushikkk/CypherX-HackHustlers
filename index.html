@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CypherX - Detect Before You Regret</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-animation">
+        <div class="cyber-grid"></div>
+        <div class="particles" id="particles"></div>
+    </div>
+    
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-shield-alt"></i> Cypher<span>X</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="monitor.html">Live Monitor</a></li>
+            <li><a href="scan-qr.html">QR Scanner</a></li>
+            <li><a href="scan-url.html">URL Scanner</a></li>
+            <li><a href="activity.html">Activity & Intel</a></li>
+            <li><a href="index.html" class="active">Logout</a></li>
+        </ul>
+    </nav>
+
+    <main class="hero">
+        <div class="hero-content">
+            <h1 class="glitch" data-text="Detect Before You Regret">Detect Before You Regret</h1>
+            <p class="subtitle">Advanced Threat Intelligence against malicious links and deceptive QR codes. Protect your digital identity today.</p>
+            
+            <div class="action-buttons">
+                <a href="scan-qr.html" class="btn btn-primary cyber-btn">
+                    <span class="btn-content"><i class="fas fa-qrcode"></i> Scan QR Code</span>
+                </a>
+                <a href="scan-url.html" class="btn btn-secondary cyber-btn flex-end">
+                    <span class="btn-content"><i class="fas fa-link"></i> Check URL Safety</span>
+                </a>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Floating Widget -->
+    <div class="floating-widget" id="floating-widget">
+        <i class="fas fa-shield-virus widget-icon pulse"></i>
+    </div>
+    <div class="widget-panel glass-card" id="widget-panel">
+        <div class="widget-header">
+            <h4>Live Protection</h4>
+            <i class="fas fa-times" id="close-widget" style="cursor: pointer;"></i>
+        </div>
+        <div class="widget-status active-status">
+            <i class="fas fa-check-circle"></i> ACTIVE
+        </div>
+        <div class="widget-last-scan">
+            <p>Last Activity:</p>
+            <div id="widget-last-url" class="truncate">-</div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
