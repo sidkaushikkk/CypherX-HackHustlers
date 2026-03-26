@@ -1,10 +1,8 @@
 {
-  "name": "cypherx-backend",
+  "name": "cypherx",
   "version": "1.0.0",
-  "description": "Backend for CypherX",
-  "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node backend/server.js"
   },
   "dependencies": {
     "axios": "^1.13.6",
